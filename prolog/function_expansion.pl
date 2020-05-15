@@ -45,9 +45,9 @@ expand_arglist([H0|T0], [H|T], [Guard|Guards]) :-  % leaf
     !.
 expand_arglist([H0|T0], [H|T], Guards) :-          % subtree
     nonvar(H0),
-    H0 =.. [Functor|Args0],
+    (compound(H0) -> compound_name_arguments(H0, Functor, Args0) ; H0 =.. [Functor|Args0]),
     expand_arglist(Args0, Args, NestedGuards),
-    H =.. [Functor|Args],
+    (compound(H0) -> compound_name_arguments(H, Functor, Args) ; H =.. [Functor|Args]),
     expand_arglist(T0, T, TailGuards),
     append(NestedGuards, TailGuards, Guards),
     !.
