@@ -91,3 +91,9 @@ user:goal_expansion(T0, T) :-
     ->  T = (Guard, T1)
     ;   T = T1   % empty guard clause
     ).
+
+user:term_expansion(H :- B, H1 :- (P, B)) :-
+    H =.. Args,
+    function_expansion:expand_arglist(Args, NewArgs, Preconditions),
+    H1 =.. NewArgs,
+    xfy_list(',', P, Preconditions).

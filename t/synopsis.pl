@@ -5,6 +5,8 @@ user:function_expansion(pi_atom, Atom, true) :-
     Pi is pi,
     atom_number(Atom, Pi).
 
+foo(incr(1)) :- true.
+
 :- use_module(library(tap)).
 
 % not exactly what's in the synopsis, but close
@@ -16,3 +18,6 @@ user:function_expansion(pi_atom, Atom, true) :-
 'pi function producing an atom' :-
     % test only the prefix to avoid system-dependent float problems
     atom_concat('3.14159', _, pi_atom).
+
+'expands in heads' :-
+  foo(2).
